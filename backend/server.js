@@ -13,11 +13,20 @@ app.use(session({
         mongoUrl: process.env.ATLAS_URI
     })
 }));
+// Routes declaration
 const registerRoutes = require("./routes/register");
 const loginRoutes = require("./routes/login");
+const homeRoutes = require("./routes/home");
+
+// Middleware
 app.use(express.json());
+
+// Routes
 app.use("/", registerRoutes);
 app.use("/", loginRoutes);
+app.use("/", homeRoutes);
+
+// Default route
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
