@@ -1,6 +1,5 @@
 const express = require("express");
 const crypto = require("crypto");
-
 const registerRoutes = express.Router();
 
 const dbo = require("../db/conn");
@@ -9,7 +8,7 @@ const passwordPolicy = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d
 registerRoutes.route("/register").post(async (req, res) => {
     try{
         let db_connect = dbo.getDb("users");
-        const {username, password } = req.body;
+        const { username, password } = req.body;
         if(!passwordPolicy.test(password)){
             return res.status(400).json({error: "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character"});
         }
