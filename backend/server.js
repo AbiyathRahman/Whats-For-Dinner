@@ -25,7 +25,7 @@ app.use(express.json());
 // Routes
 app.use("/", registerRoutes);
 app.use("/", loginRoutes);
-app.use("/", homeRoutes);
+app.use("/home", homeRoutes);
 app.use("/", logoutRoutes);
 
 // Default route
