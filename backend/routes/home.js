@@ -20,7 +20,6 @@ const checkUserLogIn = (req, res, next) => {
 homeRoutes.route("/").get(checkUserLogIn, (req, res) => {
     res.json({
         username: req.session.user.username,
-        message: "Welcome to the home page!"
     });
 });
 // Get All Restaurants

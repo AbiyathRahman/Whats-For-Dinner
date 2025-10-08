@@ -1,0 +1,22 @@
+.wfd-restaurant-list {
+  margin-top: 12px;
+}
+
+.wfd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.wfd-grid-item {
+  display: flex;
+}
+
+.wfd-empty {
+  padding: 14px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px dashed #e5e7eb;
+  color: #6b7280;
+}

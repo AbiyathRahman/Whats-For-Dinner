@@ -28,7 +28,7 @@ const Login = () => {
                 return;
             }
             setLoginForm({username: "", password: ""});
-            //navigate("/home");
+            navigate("/home");
             window.alert(data.message || "Login Successful");
         }catch(err){
             window.alert("Error: " + err.message);

@@ -29,7 +29,7 @@ const Register = () => {
                 return;
             }
             setFormData({username: "", password: ""});
-            //navigate("/home");
+            navigate("/home");
             window.alert(data.message || "Registration Successful");
         }catch(err){
             window.alert("Error: " + err.message);

@@ -1,0 +1,51 @@
+/* Header layout */
+.wfd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #ffffff, #f6f8fa);
+  border-bottom: 1px solid #e6e9ee;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.wfd-welcome {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.wfd-logout-btn {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 150ms ease, transform 120ms ease;
+}
+
+.wfd-logout-btn:hover {
+  background-color: #ff4c4c;
+  transform: translateY(-1px);
+}
+
+.wfd-logout-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .wfd-header {
+    padding: 10px 12px;
+  }
+  .wfd-welcome {
+    font-size: 1rem;
+  }
+  .wfd-logout-btn {
+    padding: 7px 10px;
+  }
+}
