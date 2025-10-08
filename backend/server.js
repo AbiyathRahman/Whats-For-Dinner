@@ -4,6 +4,17 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const app = express();
 const port = process.env.PORT || 4000;
+const cors = require("cors");
+app.use(cors(
+    {
+        origin: "http://localhost:5173",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        credentials:true,
+        optionsSuccessStatus: 204,
+        allowedHeaders: ["Content-Type", "Authorization"],
+
+    }
+));
 const dbo = require("./db/conn");
 app.use(session({
     secret: process.env.SESSION_SECRET,
