@@ -24,31 +24,31 @@ const Home = () => {
             });
         }
 
-        async function fetchNearByRestaurants(lat, lng){
-            try{
-                // fixed URL (was missing //)
-                const response = await fetch(`http://localhost:4000/home/nearby-restaurants?lat=${lat}&lng=${lng}`,{
-                    method: "GET",
-                    credentials: "include",
-                });
-                if(!response.ok){
-                    const errorData = await response.json();
-                    window.alert(errorData.error || "Failed to fetch nearby restaurants");
-                    return;
-                }
-                const data = await response.json();
-                // backend may return { status, results } or a plain array
-                if (data && data.results) {
-                    setRestaurants(data.results);
-                } else {
-                    setRestaurants(data);
-                }
+        // async function fetchNearByRestaurants(lat, lng){
+        //     try{
+        //         // fixed URL (was missing //)
+        //         const response = await fetch(`http://localhost:4000/home/nearby-restaurants?lat=${lat}&lng=${lng}`,{
+        //             method: "GET",
+        //             credentials: "include",
+        //         });
+        //         if(!response.ok){
+        //             const errorData = await response.json();
+        //             window.alert(errorData.error || "Failed to fetch nearby restaurants");
+        //             return;
+        //         }
+        //         const data = await response.json();
+        //         // backend may return { status, results } or a plain array
+        //         if (data && data.results) {
+        //             setRestaurants(data.results);
+        //         } else {
+        //             setRestaurants(data);
+        //         }
 
-            }catch(err){
-                window.alert("Error: " + (err.message || err));
-                return;
-            }
-        }
+        //     }catch(err){
+        //         window.alert("Error: " + (err.message || err));
+        //         return;
+        //     }
+        // }
 
         async function init(){
             try{
@@ -73,7 +73,7 @@ const Home = () => {
                     const lng = parseFloat(position.coords.longitude);
                     console.log("Latitude: " + lat + ", Longitude: " + lng);
                     setCoords({lat, lng});
-                    await fetchNearByRestaurants(lat, lng);
+                    // await fetchNearByRestaurants(lat, lng);
                 }catch(locErr){
                     console.error('Geolocation error:', locErr);
                     window.alert('Error: Unable to get user location');
@@ -120,12 +120,12 @@ const Home = () => {
             <main className="wfd-main">
                 <section className="wfd-intro">
                     <h2 className="wfd-page-title">Welcome back{username ? `, ${username}` : ''}!</h2>
-                    <p className="wfd-subtitle">Find nearby restaurants quickly and easily.</p>
+                    <p className="wfd-subtitle">What are you craving today?</p>
                 </section>
 
                 <section className="wfd-restaurants">
-                    <h3 className="wfd-section-title">Nearby Restaurants</h3>
-                    <RestaurantList restaurants={restaurants}/>
+                    {/* <h3 className="wfd-section-title">Nearby Restaurants</h3> */}
+                    {/* <RestaurantList restaurants={restaurants}/> */}
                 </section>
             </main>
         </div>

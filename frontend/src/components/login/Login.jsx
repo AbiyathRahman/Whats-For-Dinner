@@ -29,7 +29,7 @@ const Login = () => {
             }
             setLoginForm({username: "", password: ""});
             navigate("/home");
-            window.alert(data.message || "Login Successful");
+            
         }catch(err){
             window.alert("Error: " + err.message);
             return;

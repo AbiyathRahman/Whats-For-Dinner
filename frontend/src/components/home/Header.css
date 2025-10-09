@@ -17,7 +17,14 @@
   font-weight: 600;
   color: #222;
 }
-
+.wfd-subtitle {
+  margin: 4px 0 0 0;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: black;
+  font-weight:500;
+  
+}
 .wfd-logout-btn {
   background-color: #ff6b6b;
   color: white;
