@@ -4,12 +4,14 @@ const dbo = require("../db/conn");
 const axios = require("axios");
 
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-const restaurants = [
-        { id: 1, name: "The Gourmet Kitchen", cuisine: "Italian", rating: 4.5 },
-        { id: 2, name: "Sushi World", cuisine: "Japanese", rating: 4.7 },
-        { id: 3, name: "La Pizzeria", cuisine: "Italian", rating: 4.3 },
-        { id: 4, name: "The Grill Shack", cuisine: "American", rating: 4.2 },
-    ];
+const filterRestaurant = {
+  burgers: ["McDonald's", "Burger King", "Wendy's", "Five Guys", "In-N-Out Burger", "Jack in the Box"],
+  pizza: ["Pizza Hut", "Domino's", "Papa John's", "Little Caesars", "The Pie Pizzeria"],
+  sandwiches: ["Subway", "Jimmy John's", "Panera Bread", "Arby's", "Firehouse Subs", "Chick-fil-A"],
+  asian: ["Panda Express", "Marigold"],
+  mexican: ["Taco Bell", "Chipotle", "Qdoba", "Del Taco"],
+  italian: ["Olive Garden", "Carrabba's Italian Grill", "Maggiano's Little Italy"],
+};
 const checkUserLogIn = (req, res, next) => {
     if(!req.session.user){
         return res.status(401).json({error: "User not logged in!"});
@@ -114,10 +116,13 @@ homeRoutes.route("/nearby-restaurants").get(checkUserLogIn, async (req, res) => 
         }));
         if(filter){
             const filterLower = filter.toLowerCase();
-            const filteredPlaces = places.filter(place => {
-                return place.name.toLowerCase().includes(filterLower) || place.type.some(type => type.toLowerCase().includes(filterLower));
-            });
-            return res.json(filteredPlaces);
+            const knownPlaces = filterRestaurant[filterLower];
+            if(!knownPlaces){
+                return res.json([]);
+            }
+            const filteredRestaurants = places.filter(place => knownPlaces.some(name => place.name.toLowerCase().includes(name.toLowerCase())));
+            
+            return res.json(filteredRestaurants);
         }
 
         res.json(places);

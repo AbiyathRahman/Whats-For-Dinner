@@ -3,11 +3,17 @@ import './Home.css';
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import RestaurantList from "./RestaurantList";
+import CategoryList from "./CategoryList";
+
+const foodCategories = [
+    "burgers", "pizza", "sandwiches", "salads", "rice bowl", "mexican", "asian", "italian"
+    ]
 const Home = () => {
     const [username, setUsername] = useState("");
     const navigate = useNavigate();
     const [restaurants, setRestaurants] = useState([{name: "", cuisine: "", rating: ""}]);
     const [coords, setCoords] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState('');
 
     useEffect(() => {
         // Wrap geolocation in a promise so we can await it
@@ -48,7 +54,7 @@ const Home = () => {
         //         window.alert("Error: " + (err.message || err));
         //         return;
         //     }
-        // }
+        // };
 
         async function init(){
             try{
@@ -113,6 +119,42 @@ const Home = () => {
             return;
         }
     }
+    const fetchRestaurantByCategory = async (category) => {
+        if(!coords){
+            window.alert("Location not available! Refresh the page or allow location access.");
+            return;
+        }
+        try{
+            const response = await fetch(`http://localhost:4000/home/nearby-restaurants?lat=${coords.lat}&lng=${coords.lng}&filter=${encodeURIComponent(category)}`,{
+                method: "GET",
+                credentials: "include",
+            });
+            if(!response.ok){
+                const errorData = await response.json();
+                window.alert(errorData.error || "Failed to fetch restaurants for category: " + category);
+                return;
+            }
+            const data = await response.json();
+            if(data.status === 'ZERO_RESULTS'){
+                window.alert("No restaurants found for category: " + category);
+                setRestaurants([]);
+                return;
+            }else{
+                console.log(data);
+            }
+            
+
+        }catch(err){
+        window.alert("Error: " + (err.message || err));
+        return;
+        };
+    };
+    const handleCategoryClick = (category) => {
+        console.log("Category clicked: " + category);
+        setSelectedCategory(category);
+        fetchRestaurantByCategory(category);
+    };
+    
     return(
         <div className="wfd-home-page">
             <Header username={username} onLogout={handleLogout}/>
@@ -122,10 +164,13 @@ const Home = () => {
                     <h2 className="wfd-page-title">Welcome back{username ? `, ${username}` : ''}!</h2>
                     <p className="wfd-subtitle">What are you craving today?</p>
                 </section>
-
+                <section>
+                    <h3 className="wfd-section-title">Food Categories</h3>
+                    <CategoryList categories={foodCategories} onCategoryClick={handleCategoryClick}/>
+                </section>
                 <section className="wfd-restaurants">
-                    {/* <h3 className="wfd-section-title">Nearby Restaurants</h3> */}
-                    {/* <RestaurantList restaurants={restaurants}/> */}
+                    <h3 className="wfd-section-title">Found You Some Restaurants!</h3>
+                    <RestaurantList restaurants={restaurants}/> 
                 </section>
             </main>
         </div>
