@@ -9,7 +9,7 @@ const filterRestaurant = {
   pizza: ["Pizza Hut", "Domino's", "Papa John's", "Little Caesars", "The Pie Pizzeria"],
   sandwiches: ["Subway", "Jimmy John's", "Panera Bread", "Arby's", "Firehouse Subs", "Chick-fil-A"],
   asian: ["Panda Express", "Marigold"],
-  mexican: ["Taco Bell", "Chipotle", "Qdoba", "Del Taco"],
+  mexican: ["Taco Bell", "Chipotle", "Qdoba", "Del Taco", "Costa Vida"],
   italian: ["Olive Garden", "Carrabba's Italian Grill", "Maggiano's Little Italy"],
 };
 const checkUserLogIn = (req, res, next) => {
@@ -87,7 +87,7 @@ homeRoutes.route("/nearby-restaurants").get(checkUserLogIn, async (req, res) => 
         const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json`, {
             params: {
                 location: `${latNum},${lngNum}`,
-                radius: 2000, // 2km radius
+                radius: 4000, // 4km radius
                 type: "restaurant",
                 key: GOOGLE_API_KEY,
             },
@@ -118,9 +118,12 @@ homeRoutes.route("/nearby-restaurants").get(checkUserLogIn, async (req, res) => 
             const filterLower = filter.toLowerCase();
             const knownPlaces = filterRestaurant[filterLower];
             if(!knownPlaces){
-                return res.json([]);
+                return res.json(places); // If filter is unknown, return all places
             }
             const filteredRestaurants = places.filter(place => knownPlaces.some(name => place.name.toLowerCase().includes(name.toLowerCase())));
+            if(filteredRestaurants.length === 0){
+                return res.json({status: 'ZERO_RESULTS', results: places})
+            }
             
             return res.json(filteredRestaurants);
         }

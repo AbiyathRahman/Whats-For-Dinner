@@ -1,17 +1,31 @@
 import Restaurant from "./Restaurant"
 import './RestaurantList.css'
-import Card from '../ui/Card';
+import Card from '../UI/Card';
 
 const RestaurantList = (props) => {
-    const list = Array.isArray(props.restaurants) ? props.restaurants : [];
+    const listOfRestaurants = Array.isArray(props.restaurants) ? props.restaurants : [];
+
+    // Deduplicate by place_id when available, otherwise by normalized name
+    const dedupeRestaurants = (() => {
+        const seen = new Map();
+        for (const r of listOfRestaurants) {
+            const key = (r && r.place_id) ? `id:${r.place_id}` : `name:${(r && r.name) ? r.name.trim().toLowerCase() : ''}`;
+            if (!seen.has(key)) {
+                seen.set(key, r);
+            }
+        }
+        return Array.from(seen.values());
+    })();
+
     return(
         <div className="wfd-restaurant-list">
-            {list.length > 0 ? (
+            {dedupeRestaurants.length > 0 ? (
                 <div className="wfd-grid">
-                    {list.map((restaurant, idx) => {
+                    {dedupeRestaurants.map((restaurant, idx) => {
                         const cuisine = Array.isArray(restaurant.type) && restaurant.type.length > 0 ? restaurant.type[0].replaceAll('_',' ') : (restaurant.cuisine || 'Unknown');
+                        const key = restaurant.place_id || restaurant.id || restaurant.name || idx;
                         return (
-                            <div className="wfd-grid-item" key={restaurant.place_id || restaurant.id || restaurant.name || idx}>
+                            <div className="wfd-grid-item" key={key}>
                                <Card><Restaurant name={restaurant.name} cuisine={cuisine} rating={restaurant.rating} /></Card>
                             </div>
                         )

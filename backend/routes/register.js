@@ -34,6 +34,7 @@ registerRoutes.route("/register").post(async (req, res) => {
             username: username,
             password: hashedPassword,
             salt: salt,
+            favorites: [],
         }
         const result = await db_connect.collection("users").insertOne(freshUser);
         req.session.user = {

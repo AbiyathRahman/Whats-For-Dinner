@@ -8,7 +8,7 @@ const Restaurant = (props) => {
                 <p className="wfd-restaurant-cuisine">{props.cuisine || 'Unknown'}</p>
             </div>
             <div className="wfd-restaurant-meta">
-                <span className="wfd-rating">⭐ {props.rating ?? 'N/A'}</span>
+                <span className="wfd-rating">{props.rating ?? 'N/A'}</span>
             </div>
         </article>
     )

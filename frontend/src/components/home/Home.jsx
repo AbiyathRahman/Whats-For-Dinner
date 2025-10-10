@@ -11,7 +11,7 @@ const foodCategories = [
 const Home = () => {
     const [username, setUsername] = useState("");
     const navigate = useNavigate();
-    const [restaurants, setRestaurants] = useState([{name: "", cuisine: "", rating: ""}]);
+    const [restaurants, setRestaurants] = useState([]);
     const [coords, setCoords] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -137,10 +137,10 @@ const Home = () => {
             const data = await response.json();
             if(data.status === 'ZERO_RESULTS'){
                 window.alert("No restaurants found for category: " + category);
-                setRestaurants([]);
+                setRestaurants(data.results);
                 return;
             }else{
-                console.log(data);
+                setRestaurants(data);
             }
             
 

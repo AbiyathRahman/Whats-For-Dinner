@@ -4,40 +4,40 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
-  background: linear-gradient(90deg, #ffffff, #f6f8fa);
-  border-bottom: 1px solid #e6e9ee;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
   position: sticky;
   top: 0;
   z-index: 50;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .wfd-welcome {
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #222;
+  color: #1f2937;
 }
 .wfd-subtitle {
   margin: 4px 0 0 0;
   font-size: 1.2rem;
   font-style: italic;
-  color: black;
-  font-weight:500;
-  
+  color: #6b7280;
+  font-weight: 500;
 }
 .wfd-logout-btn {
-  background-color: #ff6b6b;
+  background: #ef4444;
   color: white;
   border: none;
   padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 150ms ease, transform 120ms ease;
+  transition: all 150ms ease;
 }
 
 .wfd-logout-btn:hover {
-  background-color: #ff4c4c;
+  background: #dc2626;
   transform: translateY(-1px);
 }
 

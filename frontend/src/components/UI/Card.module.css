@@ -1,6 +1,54 @@
 .card {
-padding: 1rem;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-border-radius: 14px;
-background-color: white;
+	padding: 0;
+	border-radius: 12px;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	transition: all 0.2s ease;
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+	height: 160px;
+	min-height: 160px;
+	max-height: 160px;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+.card:hover,
+.card:focus-within {
+	transform: none; /* Let the inner restaurant card handle hover effects */
+	box-shadow: none;
+}
+
+/* Ensure the card takes full height of grid item */
+.card > * {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+}
+
+/* Special handling for category cards */
+.card .wfd-category-card {
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+@media (max-width: 768px) {
+	.card {
+		height: 150px;
+		min-height: 150px;
+		max-height: 150px;
+	}
+}
+
+@media (max-width: 480px) {
+	.card {
+		height: 140px;
+		min-height: 140px;
+		max-height: 140px;
+	}
 }

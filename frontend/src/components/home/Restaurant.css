@@ -1,40 +1,153 @@
 .wfd-restaurant-card {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   background: #ffffff;
-  border: 1px solid #e6e9ee;
-  padding: 12px;
-  border-radius: 10px;
-  box-shadow: 0 1px 2px rgba(16,24,40,0.03);
-  width: 100%;
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  height: 160px;
+  min-height: 160px;
+  max-height: 160px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .wfd-restaurant-body {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  margin-bottom: 8px;
+  overflow: hidden;
+  min-height: 0; /* Allow flex item to shrink */
 }
 
 .wfd-restaurant-name {
   margin: 0 0 6px 0;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  flex-shrink: 0;
 }
 
 .wfd-restaurant-cuisine {
-  margin: 0;
+  margin: 0 0 8px 0;
   color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  width: fit-content;
+  flex-shrink: 0;
 }
 
 .wfd-restaurant-meta {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  margin-top: auto;
+  flex-shrink: 0;
+  min-height: 32px; /* Ensure consistent height */
 }
 
 .wfd-rating {
   background: #f3f4f6;
-  padding: 6px 8px;
-  border-radius: 999px;
+  padding: 6px 10px;
+  border-radius: 6px;
   font-weight: 600;
-  color: #111827;
+  color: #374151;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.wfd-rating::before {
+  content: '⭐';
+  font-size: 0.875rem;
+}
+
+.wfd-restaurant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: #d1d5db;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .wfd-restaurant-card {
+    padding: 14px;
+    height: 150px;
+    min-height: 150px;
+    max-height: 150px;
+  }
+  
+  .wfd-restaurant-body {
+    margin-bottom: 6px;
+  }
+  
+  .wfd-restaurant-name {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+  
+  .wfd-restaurant-cuisine {
+    font-size: 0.8rem;
+    padding: 3px 6px;
+    margin-bottom: 6px;
+  }
+  
+  .wfd-rating {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .wfd-restaurant-meta {
+    min-height: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wfd-restaurant-card {
+    height: 140px;
+    min-height: 140px;
+    max-height: 140px;
+    padding: 12px;
+  }
+  
+  .wfd-restaurant-body {
+    margin-bottom: 4px;
+  }
+  
+  .wfd-restaurant-name {
+    font-size: 0.85rem;
+    margin-bottom: 3px;
+  }
+  
+  .wfd-restaurant-cuisine {
+    font-size: 0.75rem;
+    padding: 2px 5px;
+    margin-bottom: 4px;
+  }
+  
+  .wfd-rating {
+    padding: 3px 6px;
+    font-size: 0.75rem;
+  }
+  
+  .wfd-restaurant-meta {
+    min-height: 24px;
+  }
 }
