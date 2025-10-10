@@ -18,7 +18,23 @@
   max-height: 120px;
   margin-bottom: 30px;
 }
-
+.wfd-category-random {
+    display: flex;
+  align-items: center;
+  padding: 16px;
+  width: 400px;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin-top: 30px;
+}
 .wfd-category-card {
   display: flex;
   align-items: center;
@@ -85,13 +101,13 @@
 }
 
 /* Hover Effects */
-.wfd-category-card:hover {
+.wfd-category-card:hover, .wfd-category-random:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   border-color: #d1d5db;
 }
 
-.wfd-category-card:hover .wfd-category-icon {
+.wfd-category-card:hover .wfd-category-icon  {
   background: #e5e7eb;
 }
 

@@ -32,10 +32,14 @@ homeRoutes.route("/restaurants").get(checkUserLogIn, async (req, res) => {
     
 });
 // Get Random Restaurant
-homeRoutes.route("/random-restaurant").get(checkUserLogIn, (req, res) => {
-    const randomIndex = Math.floor(Math.random() * restaurants.length);
-    res.json(restaurants[randomIndex].name);
-});
+// homeRoutes.route("/random-restaurant").post(checkUserLogIn, (req, res) => {
+//     const { length } = req.body;
+//     if(!length || length <= 0){
+//         return res.status(400).json({error: "Please provide a valid length greater than 0."});
+//     }
+//     const randomIndex = Math.floor(Math.random() * length);
+//     res.json(randomIndex);
+// });
 // Add Restaurant
 homeRoutes.route("/add-restaurant").post(checkUserLogIn, async (req, res) => {
     try{

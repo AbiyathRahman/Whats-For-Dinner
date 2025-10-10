@@ -27,9 +27,12 @@ const RestaurantList = (props) => {
                         return (
                             <div className="wfd-grid-item" key={key}>
                                <Card><Restaurant name={restaurant.name} cuisine={cuisine} rating={restaurant.rating} /></Card>
+                                
                             </div>
+                            
                         )
                     })}
+                    
                 </div>
             ) : (
                 <div className="wfd-empty">No restaurants found nearby.</div>

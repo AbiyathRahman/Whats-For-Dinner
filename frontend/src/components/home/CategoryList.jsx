@@ -5,17 +5,19 @@ const CategoryList = (props) => {
     const onClickHandler = (category) => {
         props.onCategoryClick(category);
     }
+    const onRandomClickHandler = () => {
+        props.onRandomClick();
+    }
 
     // Category icons mapping
     const categoryIcons = {
         'burgers': '🍔',
         'pizza': '🍕',
         'sandwiches': '🥪',
-        'salads': '🥗',
-        'rice bowl': '🍚',
         'mexican': '🌮',
         'asian': '🍜',
-        'italian': '🍝'
+        'all': '🍚',
+        
     };
 
     return (
@@ -41,6 +43,7 @@ const CategoryList = (props) => {
                     </div>
                 ))}
             </div>
+            <Card><div className="wfd-category-random" onClick={onRandomClickHandler}><h4 className="wfd-category-name">Random Restaurants</h4></div></Card>
         </div>
     );
 }
