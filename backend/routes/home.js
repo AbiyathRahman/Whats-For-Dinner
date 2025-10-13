@@ -141,6 +141,38 @@ homeRoutes.route("/nearby-restaurants").get(checkUserLogIn, async (req, res) => 
         }
         res.status(500).json({ error: 'Failed to fetch nearby restaurants', details: err.message || err });
     }
+
 });
+
+homeRoutes.route("/favorites").post(checkUserLogIn, async (req, res) => {
+    const { name, category} = req.body;
+    try{
+        const db_connect = dbo.getDb("DinnerDecider");
+        const user = await db_connect.collection("users").findOne({username: req.session.user.username});
+        if(!user){
+            return res.status(400).json({error: "User not found!"});
+        }
+        if(!name){
+            return res.status(400).json({error: 'Missing favorite name'});
+        }
+        const existingFavorite = user.favorites.find(favorite => favorite.name === name);
+        if(existingFavorite){
+            return res.status(400).json({error: "Favorite already exists!"});
+        }
+        const newFavorite = {name, category};
+
+        // Use $push so we don't mutate server-side objects and to create the array if it doesn't exist
+        await db_connect.collection("users").updateOne(
+            { username: req.session.user.username },
+            { $push: { favorites: newFavorite } }
+        );
+
+        return res.status(201).json({message: "Favorite added successfully!", favorite: newFavorite});
+        
+
+    }catch(err){
+        return res.status(500).json({error: "Internal server error", details: err.message || err});
+    }
+})
 
 module.exports = homeRoutes;
