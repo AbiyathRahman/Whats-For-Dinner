@@ -173,6 +173,18 @@ homeRoutes.route("/favorites").post(checkUserLogIn, async (req, res) => {
     }catch(err){
         return res.status(500).json({error: "Internal server error", details: err.message || err});
     }
-})
+});
+homeRoutes.route('/view-favorites').get(checkUserLogIn, async (req, res) => {
+    try{
+        const db_connect = dbo.getDb("DinnerDecider");
+        const user = await db_connect.collection("users").findOne({username: req.session.user.username});
+        if(!user){
+            return res.status(400).json({error: "User not found!"});
+        }
+        return res.json(user.favorites);
+    }catch(err){
+        return res.status(500).json({error: "Internal server error", details: err.message || err});
+    }
+});
 
 module.exports = homeRoutes;
