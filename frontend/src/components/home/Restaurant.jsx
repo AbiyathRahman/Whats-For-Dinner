@@ -1,5 +1,5 @@
 import './Restaurant.css'
-
+import Button from '../UI/Button';
 const Restaurant = (props) => {
     return(
         <article className="wfd-restaurant-card">
@@ -10,6 +10,7 @@ const Restaurant = (props) => {
             <div className="wfd-restaurant-meta">
                 <span className="wfd-rating">{props.rating ?? 'N/A'}</span>
             </div>
+            <Button className="wfd-rating" onClick={props.onAdd}>Add</Button>
         </article>
     )
 };

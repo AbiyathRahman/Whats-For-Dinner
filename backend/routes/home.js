@@ -187,4 +187,24 @@ homeRoutes.route('/view-favorites').get(checkUserLogIn, async (req, res) => {
     }
 });
 
+homeRoutes.route('/delete-favorite').post(checkUserLogIn, async (req, res) => {
+    const { name } = req.body;
+    try{
+        const db_connect = dbo.getDb("DinnerDecider");
+        const user = await db_connect.collection("users").findOne({username: req.session.user.username});
+        if(!user){
+            return res.status(400).json({error: "User not found!"});
+        }
+        const favoriteIndex = user.favorites.findIndex(favorite => favorite.name === name);
+        if(favoriteIndex === -1){
+            return res.status(400).json({error: "Favorite not found!"});
+        }
+        user.favorites.splice(favoriteIndex, 1);
+        await db_connect.collection("users").updateOne({username: req.session.user.username}, {$set: {favorites: user.favorites}});
+        return res.status(200).json({message: "Favorite deleted successfully!"});
+    }catch(err){
+        return res.status(500).json({error: "Internal server error", details: err.message || err});
+    }
+});
+
 module.exports = homeRoutes;
