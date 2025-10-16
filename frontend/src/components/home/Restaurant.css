@@ -73,6 +73,18 @@
   gap: 4px;
   flex-shrink: 0;
 }
+.wfd-add-fav-btn{
+    background: #f3f4f6;
+    padding: 100px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
 
 .wfd-rating::before {
   content: '⭐';
