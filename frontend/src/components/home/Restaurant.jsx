@@ -1,8 +1,27 @@
-import Button from '../UI/Button';
-import './Restaurant.css'
+import { useState } from 'react';
+import './Restaurant.css';
 
 const Restaurant = (props) => {
-    return(
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    const toggleFavorite = (e) => {
+        e.stopPropagation();
+        if (!isFavorite) {
+            setIsFavorite(true);
+            setIsAnimating(true);
+            // Remove animation class after animation completes
+            setTimeout(() => setIsAnimating(false), 300);
+        } else {
+            setIsFavorite(false);
+        }
+        // Call the original onClick handler if it exists
+        if (props.onFavoriteToggle) {
+            props.onFavoriteToggle(!isFavorite);
+        }
+    };
+
+    return (
         <article className="wfd-restaurant-card">
             <div className="wfd-restaurant-body">
                 <h4 className="wfd-restaurant-name">{props.name || 'Unnamed'}</h4>
@@ -10,9 +29,16 @@ const Restaurant = (props) => {
             </div>
             <div className="wfd-restaurant-meta">
                 <span className="wfd-rating">{props.rating ?? 'N/A'}</span>
+                <button 
+                    className={`wfd-favorite-btn ${isFavorite ? 'favorited' : ''} ${isAnimating ? 'animate' : ''}`}
+                    onClick={toggleFavorite}
+                    aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                >
+                    {isFavorite ? '❤️' : '🤍'}
+                </button>
             </div>
-            <Button >Add Favorite</Button>
         </article>
-    )
+    );
 };
+
 export default Restaurant;
