@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Restaurant.css';
 
 const Restaurant = (props) => {
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(props.isFavorited || false);
     const [isAnimating, setIsAnimating] = useState(false);
+
+    useEffect(() => {
+        setIsFavorite(props.isFavorited || false);
+    }, [props.isFavorited]);
 
     const toggleFavorite = (e) => {
         e.stopPropagation();
@@ -16,6 +20,7 @@ const Restaurant = (props) => {
             props.addFavorite(props.name);
         } else {
             setIsFavorite(false);
+            props.deleteFavorite(props.name);
         }
         // Call the original onClick handler if it exists
         if (props.onFavoriteToggle) {

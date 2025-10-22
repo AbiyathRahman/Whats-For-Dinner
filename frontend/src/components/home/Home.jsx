@@ -15,6 +15,7 @@ const Home = () => {
     const [restaurants, setRestaurants] = useState([]);
     const [coords, setCoords] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [favorites, setFavorites] = useState([]);
 
 
     useEffect(() => {
@@ -49,6 +50,16 @@ const Home = () => {
                 }
                 const data = await response.json();
                 setUsername(data.username);
+
+                // Fetch user's favorites
+                const favResponse = await fetch("http://localhost:4000/home/view-favorites", {
+                    method: "GET",
+                    credentials: "include"
+                });
+                if (favResponse.ok) {
+                    const favData = await favResponse.json();
+                    setFavorites(favData);
+                }
 
                 // Then get location and fetch nearby restaurants
                 try{
@@ -196,7 +207,34 @@ const Home = () => {
             }
             const data = await response.json();
             console.log(data);
+            // Update favorites state
+            setFavorites(prev => [...prev, { name: restaurantName }]);
             window.alert(`Added ${restaurantName} to favorites!`);
+        }catch(err){
+            window.alert("Error: " + (err.message || err));
+            return;
+        }
+    };
+    const deleteFavorite = async (restaurantName) => {
+        try{
+            const response = await fetch("http://localhost:4000/home/delete-favorite",{
+                method: "POST",
+                credentials: "include",
+                headers:{
+                    "Content-Type" : "application/json",
+                },
+                body: JSON.stringify({name: restaurantName}),
+        });
+            if(!response.ok){
+                const errorData = response.json();
+                window.alert(errorData.error || "Failed to delete favorite");
+                return;
+            }
+            const data = await response.json();
+            console.log(data);
+            // Update favorites state
+            setFavorites(prev => prev.filter(fav => fav.name !== restaurantName));
+            window.alert(`Deleted ${restaurantName} from favorites!`);
         }catch(err){
             window.alert("Error: " + (err.message || err));
             return;
@@ -218,7 +256,7 @@ const Home = () => {
                 </section>
                 <section className="wfd-restaurants">
                     <h3 className="wfd-section-title">Found You Some Restaurants!</h3>
-                    <RestaurantList restaurants={restaurants} addFavorite={addFavorite}/> 
+                    <RestaurantList restaurants={restaurants} addFavorite={addFavorite} deleteFavorite={deleteFavorite} favorites={favorites} />
                 </section>
             </main>
         </div>
