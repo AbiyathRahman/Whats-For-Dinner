@@ -178,6 +178,30 @@ const Home = () => {
         // For specific categories, fetch filtered restaurants
         fetchRestaurantByCategory(category);
     };
+    const addFavorite = async (restaurantName) => {
+        try{
+            const response = await fetch("http://localhost:4000/home/favorites",{
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({name: restaurantName}),
+            
+            });
+            if(!response.ok){
+                const errorData = await response.json();
+                window.alert(errorData.error || "Failed to add favorite");
+                return;
+            }
+            const data = await response.json();
+            console.log(data);
+            window.alert(`Added ${restaurantName} to favorites!`);
+        }catch(err){
+            window.alert("Error: " + (err.message || err));
+            return;
+        }
+    }
     
     return(
         <div className="wfd-home-page">
@@ -194,7 +218,7 @@ const Home = () => {
                 </section>
                 <section className="wfd-restaurants">
                     <h3 className="wfd-section-title">Found You Some Restaurants!</h3>
-                    <RestaurantList restaurants={restaurants}/> 
+                    <RestaurantList restaurants={restaurants} addFavorite={addFavorite}/> 
                 </section>
             </main>
         </div>

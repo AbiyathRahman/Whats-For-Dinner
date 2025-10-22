@@ -10,8 +10,10 @@ const Restaurant = (props) => {
         if (!isFavorite) {
             setIsFavorite(true);
             setIsAnimating(true);
+            
             // Remove animation class after animation completes
             setTimeout(() => setIsAnimating(false), 300);
+            props.addFavorite(props.name);
         } else {
             setIsFavorite(false);
         }
@@ -33,6 +35,7 @@ const Restaurant = (props) => {
                     className={`wfd-favorite-btn ${isFavorite ? 'favorited' : ''} ${isAnimating ? 'animate' : ''}`}
                     onClick={toggleFavorite}
                     aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                    
                 >
                     {isFavorite ? '❤️' : '🤍'}
                 </button>

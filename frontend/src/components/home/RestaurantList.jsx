@@ -26,7 +26,7 @@ const RestaurantList = (props) => {
                         const key = restaurant.place_id || restaurant.id || restaurant.name || idx;
                         return (
                             <div className="wfd-grid-item" key={key}>
-                               <Card><Restaurant name={restaurant.name} cuisine={cuisine} rating={restaurant.rating} /></Card>
+                               <Card><Restaurant name={restaurant.name} cuisine={cuisine} rating={restaurant.rating} addFavorite={props.addFavorite}/></Card>
                                 
                             </div>
                             
