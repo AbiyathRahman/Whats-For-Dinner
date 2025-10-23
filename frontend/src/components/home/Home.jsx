@@ -68,7 +68,7 @@ const Home = () => {
                     const lng = parseFloat(position.coords.longitude);
                     console.log("Latitude: " + lat + ", Longitude: " + lng);
                     setCoords({lat, lng});
-                    // await fetchNearByRestaurants(lat, lng);
+                    await fetchNearByRestaurants(lat, lng);
                 }catch(locErr){
                     console.error('Geolocation error:', locErr);
                     window.alert('Error: Unable to get user location');
@@ -239,6 +239,43 @@ const Home = () => {
             window.alert("Error: " + (err.message || err));
             return;
         }
+    };
+    const fetchFavorites = async () => {
+        try{
+            if(!coords){
+                window.alert("Location not available! Refresh the page or allow location access.");
+                return;
+            }
+            
+            // First fetch nearby restaurants to have the complete data
+            await fetchNearByRestaurants(coords.lat, coords.lng);
+            
+            // Then fetch favorites list
+            const response = await fetch("http://localhost:4000/home/view-favorites",{
+                method: "GET",
+                credentials: "include",
+            });
+            if(!response.ok){
+                const errorData = await response.json();
+                window.alert(errorData.error || "Failed to fetch favorites");
+                return;
+            }
+            const data = await response.json();
+            console.log('Favorites:', data);
+            
+            if(data.length === 0){
+                window.alert("No favorites found!");
+                setRestaurants([]);
+                return;
+            }
+
+            // Filter the restaurants to show only favorites
+            const favoriteNames = data.map(fav => fav.name);
+            setRestaurants(prev => prev.filter(r => favoriteNames.includes(r.name)));
+        }catch(err){
+            window.alert("Error: " + (err.message || err));
+            return;
+        }
     }
     
     return(
@@ -252,7 +289,7 @@ const Home = () => {
                 </section>
                 <section>
                     <h3 className="wfd-section-title">Food Categories</h3>
-                    <CategoryList categories={foodCategories} onCategoryClick={handleCategoryClick} onRandomClick={fetchRandomRestaurant}/>
+                    <CategoryList categories={foodCategories} onCategoryClick={handleCategoryClick} onRandomClick={fetchRandomRestaurant} onFavoriteClick={fetchFavorites}/>
                 </section>
                 <section className="wfd-restaurants">
                     <h3 className="wfd-section-title">Found You Some Restaurants!</h3>

@@ -8,6 +8,9 @@ const CategoryList = (props) => {
     const onRandomClickHandler = () => {
         props.onRandomClick();
     }
+    const onFavoritesClickHandler = () => {
+        props.onFavoriteClick();
+    }
 
     // Category icons mapping
     const categoryIcons = {
@@ -44,6 +47,7 @@ const CategoryList = (props) => {
                 ))}
             </div>
             <Card><div className="wfd-category-random" onClick={onRandomClickHandler}><h4 className="wfd-category-name">Random Restaurants</h4></div></Card>
+            <Card><div className="wfd-category-random" onClick={onFavoritesClickHandler}><h4 className="wfd-category-name">Favorites</h4></div></Card>
         </div>
     );
 }
