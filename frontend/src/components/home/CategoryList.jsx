@@ -46,8 +46,50 @@ const CategoryList = (props) => {
                     </div>
                 ))}
             </div>
-            <Card><div className="wfd-category-random" onClick={onRandomClickHandler}><h4 className="wfd-category-name">Random Restaurants</h4></div></Card>
-            <Card><div className="wfd-category-random" onClick={onFavoritesClickHandler}><h4 className="wfd-category-name">Favorites</h4></div></Card>
+            <div className="wfd-special-buttons-grid">
+                <div className="wfd-category-item">
+                    <Card>
+                        <div className="wfd-category-card" onClick={onRandomClickHandler}>
+                            <div className="wfd-category-icon">
+                                🎲
+                            </div>
+                            <div className="wfd-category-content">
+                                <h4 className="wfd-category-name">Random Restaurants</h4>
+                                <p className="wfd-category-subtitle">Find a random place</p>
+                            </div>
+                            <div className="wfd-category-arrow">→</div>
+                        </div>
+                    </Card>
+                </div>
+                <div className="wfd-category-item">
+                    <Card>
+                        <div className="wfd-category-card" onClick={onFavoritesClickHandler}>
+                            <div className="wfd-category-icon">
+                                ❤️
+                            </div>
+                            <div className="wfd-category-content">
+                                <h4 className="wfd-category-name">Favorites</h4>
+                                <p className="wfd-category-subtitle">Your saved places</p>
+                            </div>
+                            <div className="wfd-category-arrow">→</div>
+                        </div>
+                    </Card>
+                </div>
+                <div className="wfd-category-item">
+                    <Card>
+                        <div className="wfd-category-card" onClick={props.onDeciderClick}>
+                            <div className="wfd-category-icon">
+                                🎯
+                            </div>
+                            <div className="wfd-category-content">
+                                <h4 className="wfd-category-name">Decider</h4>
+                                <p className="wfd-category-subtitle">Help me choose</p>
+                            </div>
+                            <div className="wfd-category-arrow">→</div>
+                        </div>
+                    </Card>
+                </div>
+            </div>
         </div>
     );
 }

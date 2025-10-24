@@ -277,6 +277,9 @@ const Home = () => {
             return;
         }
     }
+    const handleDeciderClick = () => {
+        navigate("/decider");
+    }
     
     return(
         <div className="wfd-home-page">
@@ -289,7 +292,7 @@ const Home = () => {
                 </section>
                 <section>
                     <h3 className="wfd-section-title">Food Categories</h3>
-                    <CategoryList categories={foodCategories} onCategoryClick={handleCategoryClick} onRandomClick={fetchRandomRestaurant} onFavoriteClick={fetchFavorites}/>
+                    <CategoryList categories={foodCategories} onCategoryClick={handleCategoryClick} onRandomClick={fetchRandomRestaurant} onFavoriteClick={fetchFavorites} onDeciderClick={handleDeciderClick}/>
                 </section>
                 <section className="wfd-restaurants">
                     <h3 className="wfd-section-title">Found You Some Restaurants!</h3>

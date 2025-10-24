@@ -18,22 +18,22 @@
   max-height: 120px;
   margin-bottom: 30px;
 }
-.wfd-category-random {
-    display: flex;
-  align-items: center;
-  padding: 16px;
+.wfd-special-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  /* use same top spacing as main category grid */
+  margin-top: 16px;
+}
+
+/* keep item spacing consistent with normal categories */
+.wfd-special-buttons-grid .wfd-category-item {
+  margin-bottom: 30px;
+}
+
+/* match card sizing used by category cards so visual spacing is identical */
+.wfd-special-buttons-grid .wfd-category-card {
   width: 400px;
-  height: 100%;
-  background: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
-  margin-top: 30px;
 }
 .wfd-category-card {
   display: flex;
@@ -122,7 +122,7 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .wfd-category-grid {
+  .wfd-category-grid, .wfd-special-buttons-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 28px;
   }
@@ -133,7 +133,7 @@
     margin-bottom: 32px;
   }
   
-  .wfd-category-grid {
+  .wfd-category-grid, .wfd-special-buttons-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
@@ -174,7 +174,7 @@
     margin-bottom: 28px;
   }
   
-  .wfd-category-grid {
+  .wfd-category-grid, .wfd-special-buttons-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
