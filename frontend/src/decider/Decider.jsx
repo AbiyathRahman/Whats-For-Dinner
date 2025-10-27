@@ -1,8 +1,11 @@
 import Button from '../components/UI/Button';
 const Decider = () => {
+    const handleClick = async () => {
+        console.log("Deciding...")
+    }
     return (
         <div>
-            <Button>Decide For Me!</Button>
+            <Button onClick={handleClick}>Decide For Me!</Button>
         </div>
     )
 };
